@@ -4,6 +4,8 @@ var inquirer = require("inquirer");
 
 var Base = require("inquirer/lib/prompts/base");
 
+inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
+
 module.exports = Prompt;
 
 function Prompt(question, rl, answers) {
@@ -20,7 +22,7 @@ util.inherits( Prompt, Base );
 
 Prompt.prototype.askForLoop = function() {
     var ui = inquirer.prompt({
-        default: true,
+        default: 'default' in this.opt ? this.opt.default : true,
         type:'confirm',
         name: 'loop',
         message: this.opt.message || 'Would you like to loop ?'

@@ -4,6 +4,10 @@ recursive prompt for [inquirer](https://github.com/SBoudrias/Inquirer.js)
 
 ![](http://i.giphy.com/l2JhntGGk3QjTUIiA.gif)
 
+## Changes in this fork
+
+* Now accepts a `default` option, so we can default to 'No' when asking if we should start/continue the loop
+* Includes `inquirer-autocomplete-prompt` so we can embed auto-complete prompts in the recursive loop
 
 ## Installation
 
