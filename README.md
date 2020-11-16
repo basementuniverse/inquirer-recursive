@@ -8,6 +8,7 @@ recursive prompt for [inquirer](https://github.com/SBoudrias/Inquirer.js)
 
 * Now accepts a `default` option, so we can default to 'No' when asking if we should start/continue the loop
 * Includes `inquirer-autocomplete-prompt` so we can embed auto-complete prompts in the recursive loop
+* Fixes the issue where lines would be repeated instead of over-written (see https://github.com/nathanloisel/inquirer-recursive/issues/1)
 
 ## Installation
 
@@ -17,7 +18,7 @@ npm install --save inquirer-recursive
 
 ## Usage
 
-###Register the prompt
+### Register the prompt
 
 ```javascript
 inquirer.registerPrompt('recursive', require('inquirer-recursive'));
