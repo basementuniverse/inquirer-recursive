@@ -1,24 +1,23 @@
 # inquirer-recursive
 
-recursive prompt for [inquirer](https://github.com/SBoudrias/Inquirer.js)
+Recursive prompt for [inquirer](https://github.com/SBoudrias/Inquirer.js)
 
-![](http://i.giphy.com/l2JhntGGk3QjTUIiA.gif)
+Forked from https://github.com/nathanloisel/inquirer-recursive
 
 ## Changes in this fork
 
 * Now accepts a `default` option, so we can default to 'No' when asking if we should start/continue the loop
 * Includes `inquirer-autocomplete-prompt` so we can embed auto-complete prompts in the recursive loop
 * Fixes the issue where lines would be repeated instead of over-written (see https://github.com/nathanloisel/inquirer-recursive/issues/1)
+* Adds `initialMessage` option that replaces `message` on the first iteration of the loop
 
 ## Installation
 
 ```
-npm install --save inquirer-recursive
+npm install github:basementuniverse/inquirer-recursive
 ```
 
 ## Usage
-
-### Register the prompt
 
 ```javascript
 inquirer.registerPrompt('recursive', require('inquirer-recursive'));
@@ -33,52 +32,62 @@ inquirer.prompt({
 Change `recursive` to whatever you might prefer.
 
 ### Options
--**message** (String) The question that will be ask for interating over prompts default: Would you like to loop ?
--**prompts** (Object) Prompts that will be asked multiple times (Required) [see](https://github.com/SBoudrias/Inquirer.js#questions)
+-**message:** (String|Function) The question that will be asked for iterating over prompts, default: Would you like to loop?
+-**initialMessage:** (String) The question that will be asked on the first iteration of the loop
+-**prompts:** (Object) Prompts that will be asked multiple times (Required)
 
 #### Example
 
 ```javascript
 inquirer.registerPrompt('recursive', require('inquirer-recursive'));
-inquirer.prompt([{
+
+inquirer.prompt([
+  {
     type: 'recursive',
-    message: 'Add a new user ?',
+    message: 'Add another user?',
+    initialMessage: 'Add a new user?',
     name: 'users',
+    default: false,
     prompts: [
-        {
-			type: 'input',
-			name: 'name',
-			message: 'What is user\'s name?',
-			validate: function (value) {
-				if ((/.+/).test(value)) { return true; }
-				return 'name is required';
-			}
-		}, {
-            type: 'input',
-            name: 'age',
-            message: 'How old is he?',
-            validate: function (value) {
-                var digitsOnly = /\d+/;
-                if (digitsOnly.test(value)) { return true; }
-                return 'Invalid age! Must be a number genius!';
-            }
+      {
+        type: 'input',
+        name: 'name',
+        message: 'What is the user\'s name?',
+        validate: function (value) {
+          if ((/.+/).test(value)) {
+            return true;
+          }
+          return 'Name cannot be empty';
         }
+      }, {
+        type: 'input',
+        name: 'age',
+        message: 'How old is the user?',
+        validate: function (value) {
+          var digitsOnly = /\d+/;
+          if (digitsOnly.test(value)) {
+            return true;
+          }
+          return 'Age must be numeric';
+        }
+      }
     ]
-}]).then(function(answers) {
-    console.log(answers.users);
-    /*
-    OUTPUT :
-    [
-        {
-            name: 'Brendan Eich',
-            age: '42',
-        }, {
-            name: 'Jordan Walke',
-            age: '13',
-        },
-        ...
-    ]
-    */
+  }
+]).then(answers => {
+  console.log(answers.users);
+  /*
+  OUTPUT :
+  [
+    {
+      name: 'Brendan Eich',
+      age: '42',
+    }, {
+      name: 'Jordan Walke',
+      age: '13',
+    },
+    ...
+  ]
+  */
 });
 ```
 
