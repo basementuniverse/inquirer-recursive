@@ -11,6 +11,7 @@ inquirer
     initialMessage: 'Add a new user?',
     name: 'users',
     default: false,
+    autoStart: false,
     prompts: [
       {
         type: 'input',

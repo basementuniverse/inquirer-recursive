@@ -10,21 +10,25 @@ class Prompt extends Base {
   }
 
   askForLoop() {
-    const message = ('initialMessage' in this.opt && this.responses.length === 0)
-      ? this.opt.initialMessage
-      : this.opt.message;
-    inquirer.prompt({
-      default: 'default' in this.opt ? this.opt.default : true,
-      type: 'confirm',
-      name: 'loop',
-      message: message || 'Would you like to loop?'
-    }).then(result => {
-      if (result.loop) {
-        this.askNestedQuestion();
-      } else {
-        this.done(this.responses);
-      }
-    });
+    if (this.opt.autoStart && this.responses.length === 0) {
+      this.askNestedQuestion();
+    } else {
+      const message = ('initialMessage' in this.opt && this.responses.length === 0)
+        ? this.opt.initialMessage
+        : this.opt.message;
+      inquirer.prompt({
+        default: 'default' in this.opt ? this.opt.default : true,
+        type: 'confirm',
+        name: 'loop',
+        message: message || 'Would you like to loop?'
+      }).then(result => {
+        if (result.loop) {
+          this.askNestedQuestion();
+        } else {
+          this.done(this.responses);
+        }
+      });
+    }
   }
 
   askNestedQuestion() {

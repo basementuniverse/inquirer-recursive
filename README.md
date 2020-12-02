@@ -10,6 +10,7 @@ Forked from https://github.com/nathanloisel/inquirer-recursive
 * Includes `inquirer-autocomplete-prompt` so we can embed auto-complete prompts in the recursive loop
 * Fixes the issue where lines would be repeated instead of over-written (see https://github.com/nathanloisel/inquirer-recursive/issues/1)
 * Adds `initialMessage` option that replaces `message` on the first iteration of the loop
+* Adds `autoStart` option, if true then skip the first prompt and start looping automatically
 
 ## Installation
 
