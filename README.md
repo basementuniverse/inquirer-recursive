@@ -33,9 +33,9 @@ inquirer.prompt({
 Change `recursive` to whatever you might prefer.
 
 ### Options
--**message:** (String|Function) The question that will be asked for iterating over prompts, default: Would you like to loop?
--**initialMessage:** (String) The question that will be asked on the first iteration of the loop
--**prompts:** (Object) Prompts that will be asked multiple times (Required)
+- **message:** (String|Function) The question that will be asked for iterating over prompts, default: Would you like to loop?
+- **initialMessage:** (String) The question that will be asked on the first iteration of the loop
+- **prompts:** (Object) Prompts that will be asked multiple times (Required)
 
 #### Example
 
